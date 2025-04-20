@@ -106,7 +106,7 @@ button{
   color: #fff;
   padding: 15px 32px;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   border-radius: 4px;
   cursor: pointer;
   &:hover{
@@ -114,4 +114,28 @@ button{
       box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
       
   }
+}
+
+.recibo{ 
+  width: 100%;
+  font-size: 1.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+ 
+}
+
+#intro{
+
+  margin: 40px 0;
+  span{
+    font-weight: bold;
+  }
+}
+
+#recibo-list{
+
+}
+#total{
+font-weight: bold;
 }

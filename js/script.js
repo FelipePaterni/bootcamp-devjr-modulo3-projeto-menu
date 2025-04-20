@@ -13,7 +13,7 @@ var prods = [
 
 function calc() {
   //inputs
-  var nome = document.getElementById("name").value;
+  
 
   var quantities = document.getElementsByName("quantity");
   var total = 0;
@@ -26,6 +26,8 @@ function calc() {
     currency: "BRL",
   });
 
+  intro();
+
   for (var input of quantities) {
     var id = input.id;
     if (input.value > 0) {
@@ -35,4 +37,11 @@ function calc() {
       total += prods[id - 1].price * parseFloat(input.value);
     }
   }
+}
+
+function intro(){
+  var nome = document.getElementById("name").value;
+  var intro = document.getElementById("intro");
+
+  intro.innerHTML = `Caro <span>${nome}</span>`;
 }
