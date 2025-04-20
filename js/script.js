@@ -1,8 +1,7 @@
-//mascara de telefone
+// Máscara de telefone
 $("#phone").mask("(99) 9999-99999");
 
-//lista de produtos
-var prods = [
+const prods = [
   { id: 1, name: "Batata com bife", price: 30.0 },
   { id: 2, name: "Coxa de Frango Crocante", price: 25.0 },
   { id: 3, name: "Carne de Panela", price: 22.0 },
@@ -11,37 +10,39 @@ var prods = [
   { id: 6, name: "Torresmo", price: 12.0 },
 ];
 
+const formatter = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+});
+
 function calc() {
-  //inputs
-  
+  const nome = document.getElementById("name").value.trim();
 
-  var quantities = document.getElementsByName("quantity");
-  var total = 0;
+  const quantities = document.getElementsByName("quantity");
+  let totalFinal = 0;
+  let listItems = "";
 
-  var output = document.getElementById("output");
-  output.innerHTML = "";
+  quantities.forEach((input, index) => {
+    const quantity = parseFloat(input.value) || 0;
+    if (quantity > 0) {
+      const product = prods[index];
+      const total = product.price * quantity;
+      totalFinal += total;
 
-  var formatter = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
+      listItems += `
+        <li>
+          Prato: ${product.name} -
+          Preço unitário: ${formatter.format(product.price)} -
+          Quantidade: ${quantity} -
+          Total: ${formatter.format(total)}
+        </li>`;
+    }
   });
 
-  intro();
-
-  for (var input of quantities) {
-    var id = input.id;
-    if (input.value > 0) {
-      output.innerHTML += `Produto: ${prods[id - 1].name}  - Preço: ${
-        prods[id - 1].price
-      } - Quantidade: ${input.value} </br>`;
-      total += prods[id - 1].price * parseFloat(input.value);
-    }
-  }
-}
-
-function intro(){
-  var nome = document.getElementById("name").value;
-  var intro = document.getElementById("intro");
-
-  intro.innerHTML = `Caro <span>${nome}</span>`;
+  document.getElementById("recibo").innerHTML = `
+    <p id="intro">Caro <span>${nome}</span></p>
+    <p>Segue os dados do seu pedido</p>
+    <p>O seu pedido é:</p>
+    <ul id="output">${listItems}</ul>
+    <p id="total">Total: ${formatter.format(totalFinal)}</p>`;
 }
